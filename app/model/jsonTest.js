@@ -1,15 +1,15 @@
 /* indent size: 2 */
-/*角色信息*/
-const moment = require('moment')
+/* 角色信息*/
+const moment = require('moment');
 module.exports = app => {
 
-  const DataTypes = app.Sequelize
+  const DataTypes = app.Sequelize;
 
   const Model = app.model.define('jsonTest', {
     id: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
     },
     strArr: {
       type: DataTypes.JSON,
@@ -34,40 +34,40 @@ module.exports = app => {
 
     creator: {
       type: DataTypes.STRING(50),
-      allowNull: true
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.TIME,
       allowNull: true,
       field: 'created_at',
       get() {
-        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss')
-      }
+        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
+      },
     },
     modifier: {
       type: DataTypes.STRING(50),
-      allowNull: true
+      allowNull: true,
     },
     updatedAt: {
       type: DataTypes.TIME,
       allowNull: true,
       field: 'updated_at',
       get() {
-        return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss')
-      }
-    }
+        return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
+      },
+    },
   }, {
-    tableName: 'json_test'
+    tableName: 'json_test',
 
-  })
+  });
 
-  Model.byPk = async function (pk) {
-    return await this.findByPk(pk)
-  }
+  Model.byPk = async function(pk) {
+    return await this.findByPk(pk);
+  };
 
-  Model.associate = function () {
+  Model.associate = function() {
     // app.model.Flow.hasMany(app.model.FLowData, { foreignKey: 'flowId' });
-  }
+  };
 
-  return Model
-}
+  return Model;
+};

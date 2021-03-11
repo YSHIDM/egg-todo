@@ -1,7 +1,7 @@
 /**
  * 角色管理
  */
-const { Service } = require('egg')
+const { Service } = require('egg');
 // const { Op } = require('sequelize')
 
 module.exports = class TodoNodeSvc extends Service {
@@ -12,44 +12,44 @@ module.exports = class TodoNodeSvc extends Service {
    * @param {array} params 参数数组
    */
   async catchError(ser, func, params = []) {
-    let result = {}
+    let result = {};
     try {
-      const { code, data, msg } = await this.service[ser][func](...params)
+      const { code, data, msg } = await this.service[ser][func](...params);
 
-      result = { code, msg, data }
+      result = { code, msg, data };
     } catch (err) {
-      console.error(err)
-      this.ctx.logger.error(err)
+      console.error(err);
+      this.ctx.logger.error(err);
       if (err.code) {
-        result = err
+        result = err;
       }
-      result = { code: 500 }
+      result = { code: 500 };
     }
-    return this.ctx.helper.getInfo(result)
+    return this.ctx.helper.getInfo(result);
   }
-  /**
-   * 捕获 DataLoader 异常统一接口
-   * @param service service 名称
-   * @param func service 方法
-   * @param params 参数数组
-   */
+  // /**
+  //  * 捕获 DataLoader 异常统一接口
+  //  * @param service service 名称
+  //  * @param func service 方法
+  //  * @param params 参数数组
+  //  */
   async catchDataLoaderError(service, func, params = []) {
-    let result = {}
+    let result = {};
     try {
-      result = await this.service[service][func](...params)
+      result = await this.service[service][func](...params);
     } catch (err) {
-      console.error(err)
-      this.ctx.logger.error(err)
+      console.error(err);
+      this.ctx.logger.error(err);
       if (err.code) {
-        result = err
+        result = err;
       }
-      result = { code: this.STATUS_CODE.INTERNAL.RES.code }
+      result = { code: this.STATUS_CODE.INTERNAL.RES.code };
     }
-    return result
+    return result;
   }
-  async getTodoNodeTitlesByNames(names){
-    const allTodoNodeMap = await this.service.todoNodeSvc.getAllTodoNodeMap()
-    const titles = names.map(name => allTodoNodeMap.get(name))
-    return titles
+  async getTodoNodeTitlesByNames(names) {
+    const allTodoNodeMap = await this.service.todoNodeSvc.getAllTodoNodeMap();
+    const titles = names.map(name => allTodoNodeMap.get(name));
+    return titles;
   }
-}
+};

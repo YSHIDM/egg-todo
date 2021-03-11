@@ -1,32 +1,32 @@
 // app.js
 class AppBootHook {
   constructor(app) {
-    this.app = app
+    this.app = app;
   }
 
-  configWillLoad() {
-  }
+  // configWillLoad() {
+  // }
 
-  async didLoad() {
-  }
+  // async didLoad() {
+  // }
 
-  async willReady() {
-    const room = await this.app.redis.get('room:demo')
-    if (!room) {
-      await this.app.redis.set('room:demo', 'demo')
-    }
-  }
+  // async willReady() {
+  //   const room = await this.app.redis.get('room:demo');
+  //   if (!room) {
+  //     await this.app.redis.set('room:demo', 'demo');
+  //   }
+  // }
 
   async didReady() {
-    // this.app.model.sync()
+    this.app.emit('reloadScheduleList');
   }
 
-  async serverDidReady() {
+  // async serverDidReady() {
 
-  }
+  // }
 }
 
-module.exports = AppBootHook
+module.exports = AppBootHook;
 
 // module.exports = app => {
 //   app.beforeStart(async () => {
