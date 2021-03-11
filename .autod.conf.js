@@ -24,3 +24,7 @@ module.exports = {
     './dist',
   ],
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3f6076988eaee20c6e05ba0ecd12f8cf2e850380
