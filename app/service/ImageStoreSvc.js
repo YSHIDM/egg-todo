@@ -1,12 +1,14 @@
-const { Service } = require('egg');
+
+const CommonBaseService = require('./commonBaseSvc');
 // const { Op } = require('sequelize')
 
-module.exports = class ImageStoreSvc extends Service {
+module.exports = class ImageStoreSvc extends CommonBaseService {
 
-  /**
-     * 批量记录图片文件信息
-     * @param {array} records 图片信息数组
-     */
+  // /**
+  //  * 批量记录图片文件信息
+  //  * @param {array} records 图片信息数组
+  //  * @return {Promise<any>}
+  //  */
   async bulkCreate(records) {
     const { ctx, app } = this;
     const model = ctx.model.ImageStore;
@@ -18,10 +20,10 @@ module.exports = class ImageStoreSvc extends Service {
 
     return await model.bulkCreate(records).then(data => data.map(d => d.toJSON()));
   }
-  /**
-     * 记录图片文件信息
-     * @param {*} imageInfo 图片信息
-     */
+  // /**
+  //  * 记录图片文件信息
+  //  * @param {*} imageInfo 图片信息
+  //  */
   async saveImageInfo(imageInfo) {
     const { ctx, app } = this;
     const model = ctx.model.ImageStore;

@@ -1,17 +1,17 @@
 /** @type Egg.EggPlugin */
 module.exports = {
-  // ejs: {
-  //   enable: true,
-  //   package: 'egg-view-ejs',
-  // },
+  ejs: {
+    enable: true,
+    package: 'egg-view-ejs',
+  },
   sequelize: {
     enable: true,
     package: 'egg-sequelize',
   },
-  // 'apollo-server-graphql': {
-  //   enable: true,
-  //   package: 'egg-apollo-server-graphql',
-  // },
+  'apollo-server-graphql': {
+    enable: true,
+    package: 'egg-apollo-server-graphql',
+  },
   // token生成以及验证包
   jwt: {
     enable: true,
