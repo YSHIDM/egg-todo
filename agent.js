@@ -15,7 +15,7 @@ class AppBootHook {
     // if (!room) {
     //   await this.app.redis.set('room:demo', 'demo');
     // }
-    console.log('willReady');
+    console.info('willReady');
     this.agent.messenger.on('loadSchedule', async scheduleRecord => {
       this.loadSchedule(scheduleRecord);
     });
@@ -24,7 +24,7 @@ class AppBootHook {
       schedule.cancelJob(scheduleName);
     });
     this.agent.messenger.on('reloadScheduleList', async ctx => {
-      console.log('reloadScheduleList');
+      console.info('reloadScheduleList');
       for (const jobName in schedule.scheduledJobs) {
         if (schedule.scheduledJobs.hasOwnProperty(jobName)) {
           const job = schedule.scheduledJobs[jobName];
@@ -36,7 +36,7 @@ class AppBootHook {
   }
 
   async didReady() {
-    console.log('didReady');
+    console.info('didReady');
     const ctx = await this.agent.createAnonymousContext();
     // this.app.model.sync()
     this.initScheduleList(ctx);

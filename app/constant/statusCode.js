@@ -428,7 +428,6 @@ const STATUS_CODE = {
   },
 }
 
-module.exports = STATUS_CODE
 
 // 前端开发 40110: '名称不能为空',
 // 前端用户 340110: '名称不能为空',
@@ -543,4 +542,4 @@ const CODE_MSG_MAP = {
   60003: '该部门不存在',
 }
 
-module.exports = CODE_MSG_MAP
+module.exports = { STATUS_CODE, CODE_MSG_MAP }

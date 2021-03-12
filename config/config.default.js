@@ -1,6 +1,5 @@
 /* eslint valid-jsdoc: "off" */
 
-const UUID = require('uuid');
 const path = require('path');
 const SYS_SETTING = require('../app/constant/sysSetting');
 const { STATUS_CODE, CODE_MSG_MAP } = require('../app/constant/statusCode');

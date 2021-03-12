@@ -49,9 +49,6 @@ module.exports = app => {
       type: TIME,
       allowNull: true,
       field: 'created_at',
-      get() {
-        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
-      },
     },
     modifier: {
       type: STRING(50),
@@ -61,9 +58,6 @@ module.exports = app => {
       type: TIME,
       allowNull: true,
       field: 'updated_at',
-      get() {
-        return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
-      },
     },
   }, {
     tableName: 'todo',
