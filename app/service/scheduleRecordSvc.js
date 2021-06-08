@@ -34,7 +34,6 @@ module.exports = class ScheduleRecordSvc extends Service {
   //  * @param id 定时器id
   //  */
   async byPk(id) {
-    console.log(this.ctx);
     const model = this.ctx.model.ScheduleRecord;
     return await model.findByPk(id, { raw: true });
   }

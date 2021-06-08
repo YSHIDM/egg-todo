@@ -1,6 +1,5 @@
 /* eslint valid-jsdoc: "off" */
 
-const UUID = require('uuid');
 const path = require('path');
 const SYS_SETTING = require('../app/constant/sysSetting');
 const { STATUS_CODE, CODE_MSG_MAP } = require('../app/constant/statusCode');
@@ -43,7 +42,7 @@ module.exports = appInfo => {
     // algorithm: 'HS512', // 签名算法,默认是HMAC SHA256（写成 HS256）
   };
   config.algorithm = 'HS512';// 签名算法,默认是HMAC SHA256（写成 HS256）
-  config.expire = 3 * 60 * 60; // redis 有效时间
+  config.expire = 7 * 24 * 60 * 60; // redis 有效时间
   // 配置前端静态文件路径
   config.static = {
     prefix: '',
@@ -60,23 +59,9 @@ module.exports = appInfo => {
       '.html': 'ejs',
     },
   };
-  config.graphql_multipart = {
-    tmpdir: path.join(appInfo.baseDir, '/egg-multipart-tmp'),
-    whitelist: [
-      '.jpg', '.jpeg', // image/jpeg
-      '.png', // image/png, image/x-png
-    ],
-  };
-  config.graphql_multipart = {
-    tmpdir: path.join(appInfo.baseDir, '/egg-multipart-tmp'),
-    whitelist: [
-      '.jpg', '.jpeg', // image/jpeg
-      '.png', // image/png, image/x-png
-    ],
-  };
 
   // add your middleware config here 中间件拦截请求,在中间件中开启 graphql // , 'errorHandler', 'authentication'
-  config.middleware = [ 'compress', 'graphql' ];
+  config.middleware = [ 'compress', 'errorHandler', 'graphql' ];
   // 以下地址需要中间件处理
   config.authPath = [ '/', '/images' ];
   // 提供 graphql 的路由
@@ -99,7 +84,13 @@ module.exports = appInfo => {
     },
     debug: true,
   };
-
+  config.graphql_multipart = {
+    tmpdir: path.join(appInfo.baseDir, '/egg-multipart-tmp'),
+    whitelist: [
+      '.jpg', '.jpeg', // image/jpeg
+      '.png', // image/png, image/x-png
+    ],
+  };
   // 图片上传路径
   config.uploadDir = 'app/public/avatar/upload';
   config.onerror = {
@@ -133,32 +124,32 @@ module.exports = appInfo => {
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
 
-  config.io = {
-    init: {
-      wsEngine: 'ws',
-    },
-    namespace: {
-      '/': {
-        connectionMiddleware: [ 'auth' ],
-        packetMiddleware: [ 'filter' ],
-      },
-      '/chat': {
-        connectionMiddleware: [ 'auth' ],
-        packetMiddleware: [],
-      },
-    },
-    redis: {
-      host: '127.0.0.1',
-      port: 6378,
-      auth_pass: '123456',
-      db: 1,
-    },
-    generateId: request => {
-      // Something like UUID.
-      const socketId = request._query.socketId || UUID.v1();
-      return socketId;
-    },
-  };
+  // config.io = {
+  //   init: {
+  //     wsEngine: 'ws',
+  //   },
+  //   namespace: {
+  //     '/': {
+  //       connectionMiddleware: [ 'auth' ],
+  //       packetMiddleware: [ 'filter' ],
+  //     },
+  //     '/chat': {
+  //       connectionMiddleware: [ 'auth' ],
+  //       packetMiddleware: [],
+  //     },
+  //   },
+  //   redis: {
+  //     host: '127.0.0.1',
+  //     port: 6378,
+  //     auth_pass: '123456',
+  //     db: 1,
+  //   },
+  //   generateId: request => {
+  //     // Something like UUID.
+  //     const socketId = request._query.socketId || UUID.v1();
+  //     return socketId;
+  //   },
+  // };
   config.customLoader = {
     constant: {
       directory: 'app/constant',
