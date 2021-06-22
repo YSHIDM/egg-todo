@@ -40,11 +40,13 @@
     "@types/supertest": "^2.0.10",
     "autod": "^3.1.0",
     "autod-egg": "^1.1.0",
-    "egg-bin": "^4.15.0",
+    "egg-bin": "^4.16.2",
     "egg-ci": "^1.18.0",
     "egg-mock": "^4.0.1",
     "eslint": "^7.11.0",
+    "eslint-config-alloy": "^4.1.0",
     "eslint-config-egg": "^8.1.2",
+    "eslint-plugin-jsdoc": "^35.3.2",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
     "sequelize-cli": "^5.0.0"
@@ -60,7 +62,7 @@
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "EGG_SERVER_ENV=local egg-bin test",
     "cov": "egg-bin cov",
-    "lint": "eslint .",
+    "lint": "eslint --fix .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod"
   },

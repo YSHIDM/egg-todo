@@ -1,4 +1,5 @@
 const schedule = require('node-schedule');
+
 class AppBootHook {
   constructor(agent) {
     this.agent = agent;
@@ -15,7 +16,7 @@ class AppBootHook {
     // if (!room) {
     //   await this.app.redis.set('room:demo', 'demo');
     // }
-    console.info('willReady');
+    // console.info('willReady');
     this.agent.messenger.on('loadSchedule', async scheduleRecord => {
       this.loadSchedule(scheduleRecord);
     });
@@ -26,10 +27,8 @@ class AppBootHook {
     this.agent.messenger.on('reloadScheduleList', async ctx => {
       console.info('reloadScheduleList');
       for (const jobName in schedule.scheduledJobs) {
-        if (schedule.scheduledJobs.hasOwnProperty(jobName)) {
-          const job = schedule.scheduledJobs[jobName];
-          job.cancel();
-        }
+        const job = schedule.scheduledJobs[jobName];
+        job.cancel();
       }
       this.initScheduleList(ctx);
     });
@@ -74,10 +73,9 @@ class AppBootHook {
       /**
        * 修改后cron表达式
        */
-      const cron = scheduleRecord.cron.join(' ');// 正式
+      const cron = scheduleRecord.cron.join(' '); // 正式
       // let cron2 = ['*/5', '*', '*', '*', '*', '*'].join(' ');// 测试
       schedule.rescheduleJob(job, cron);
-
     } else {
       await this.setSchedule(scheduleRecord);
     }
