@@ -1,136 +1,105 @@
-const CommonBaseService = require('./commonBaseSvc');
-// const { Op } = require('sequelize')
+const { Service } = require('egg')
+const { format } = require('util')
+const { customAlphabet } = require('nanoid')
+const moment = require('moment')
 
-module.exports = class TodoNodeSvc extends CommonBaseService {
+module.exports = class TodoNodeSvc extends Service {
   constructor(ctx) {
-    super(ctx);
-    this.CONSTANT = this.app.constant.common;
+    super(ctx)
+    this.CONSTANT = this.app['constant'].common
   }
   /**
    * 捕获异常统一接口
    * @param {string} ser service 名称
    * @param {string} func service 方法
-   * @param {array} params 参数数组
-   * @returns {Promise<any>} aa
+   * @param {Array} params 参数数组
+   * @return {Promise<any>} 返回值
    */
   async catchError(ser, func, params = []) {
-    let result = {};
+    let result = {}
     try {
-      const { code, data, msg } = await this.service[ser][func](...params);
+      const { code, data, msg } = await this.service[ser][func](...params)
 
-      result = { code, msg, data };
+      result = { code, msg, data }
     } catch (err) {
-      console.error(err);
-      this.ctx.logger.error(err);
+      console.error(err)
+      this.ctx.logger.error(err)
       if (err.code) {
-        result = err;
+        result = err
+      } else {
+        result = { code: this.STATUS_CODE.INTERNAL.RES.code }
       }
-      result = { code: this.STATUS_CODE.INTERNAL.RES.code };
     }
-    return result;
+    return result
   }
   /**
    * 捕获 DataLoader 异常统一接口
-   * @param service service 名称
-   * @param func service 方法
-   * @param params 参数数组
+   * @param {string} service service 名称
+   * @param {string} func service 方法
+   * @param {Array} params 参数数组
+   * @return {Promise<any>} 返回值
    */
   async catchDataLoaderError(service, func, params = []) {
-    let result = {};
+    let result = {}
     try {
-      result = await this.service[service][func](...params);
+      result = await this.service[service][func](...params)
     } catch (err) {
-      console.error(err);
-      this.ctx.logger.error(err);
+      console.error(err)
+      this.ctx.logger.error(err)
       if (err.code) {
-        result = err;
+        result = err
+      } else {
+        result = { code: this.STATUS_CODE.INTERNAL.RES.code }
       }
-      result = { code: this.STATUS_CODE.INTERNAL.RES.code };
     }
-    return result;
+    return result
   }
   /**
-   * 按名称获取节点标题
+   * 按名称列表获取节点标题列表
    * @param {string} names 节点名称
+   * @return {Promise<string[]>} 标题列表
    */
   async getTodoNodeTitlesByNames(names) {
-    const allTodoNodeMap = await this.service.todoNodeSvc.getAllTodoNodeMap();
-    const titles = names.map(name => allTodoNodeMap.get(name));
-    return titles;
-  }
-  async getTodoNodeTitlesByNames(names) {
-    const allTodoNodeMap = await this.service.todoNodeSvc.getAllTodoNodeMap();
-    const titles = names.map(name => allTodoNodeMap.get(name));
-    return titles;
+    const allTodoNodeMap = await this.service.todoNodeSvc.getAllTodoNodeMap()
+    return await names.map(name => allTodoNodeMap.get(name))
   }
   // /**
   //  * 分页查询总接口
   //  * @param {string} type 分页查询类型
   //  * @param {{ search: string; filter: any; pageSize: number; currentPage: number }} query 分页查询添加: search 搜索框, filter 过滤条件, pageSize 每页条数, currentPage 当前页
-  //  * @returns {Promise<any>}
+  //  * @return  {Promise<any>}
   //  */
   async getPage(type, query = void 0) {
     // 特殊情况
     // if ('cust1') {
     //   this.service.CustSvc.getByPage1({})
     // }
-    let service = '';
-    switch (type) {
-      case 'cust':
-        service = 'custSvc';
-        break;
-      case 'asset':
-        service = 'assetSvc';
-        break;
-      case 'template':
-        service = 'templateSvc';
-        break;
-      case 'memo':
-        service = 'memoSvc';
-        break;
-      case 'notice':
-        service = 'noticeSvc';
-        break;
-      case 'assess':
-        service = 'assessSvc';
-        break;
-      case 'product':
-        service = 'productSvc';
-        break;
-      case 'quotaContract':
-        service = 'quotaContractSvc';
-        break;
-      case 'quotaCredit':
-        service = 'quotaCreditSvc';
-        break;
-      default:
-        break;
-    }
-    let search = '';
-    let filter = {};
-    let pageSize = 10;
-    let currentPage = 1;
+    const service = type + 'Svc'
+    let search = ''
+    let filter = {}
+    let pageSize = 10
+    let currentPage = 1
     if (query) {
-      const inputFilter = query.filter;
+      const inputFilter = query.filter
       if (!!inputFilter && typeof inputFilter === 'string') {
         try {
-          const obj = JSON.parse(inputFilter);
+          const obj = JSON.parse(inputFilter)
           if (typeof obj === 'object' && obj) {
-            filter = obj;
+            filter = obj
           }
         } catch (e) {
-          console.error('JSON 格式错误', e);
-          return { code: this.STATUS_CODE.ERROR.COMMON.FILTER_NOT_JSON.code };
+          console.error('JSON 格式错误', e)
+          return { code: this.STATUS_CODE.ERROR.COMMON.FILTER_NOT_JSON.code }
         }
       }
-      search = query.search;
-      pageSize = query.pageSize;
-      currentPage = query.currentPage;
+      search = query.search
+      pageSize = query.pageSize
+      currentPage = query.currentPage
     }
 
     // 该接口需要给每条数据添加 type 字段, 以判断该数据的类型
     // 参考 'CustSvc.ts' getPage方法
-    return await this.ctx.service[service].getPage({ search, filter, pageSize, currentPage });
+    return this.ctx.service[service].getPage({ search, filter, pageSize, currentPage })
   }
   // /**
   //  * 分页查询处理
@@ -141,13 +110,36 @@ module.exports = class TodoNodeSvc extends CommonBaseService {
   getPageHandler(rowType, pageSize, currentPage) {
     return ds => {
       const rows = ds.rows.map(d => {
-        const dt = d.toJSON();
-        dt.rowType = rowType;
-        return dt;
-      });
-      const count = ds.count;
-      const totalPages = Math.ceil(count / pageSize);
-      return { rows, count, currentPage, totalPages };
-    };
+        const dt = d.toJSON()
+        dt.rowType = rowType
+        return dt
+      })
+      const { count } = ds
+      const totalPages = Math.ceil(count / pageSize)
+      return { rows, count, currentPage, totalPages }
+    }
   }
-};
+  genId(alphabet) {
+    return (prefix, length = 10) => {
+      const prefixLength = prefix.length
+      const customNanoid = customAlphabet(alphabet, length - prefixLength)
+      return format('%s%s', prefix, customNanoid())
+    }
+  }
+  async genIncrId(prefix = '', fillSize = 2) {
+    const today = moment().format('YYYYMMDD')
+    const cacheK = format('%s_ID', prefix)
+    const value = await this.app.redis.hget('GEN_INCR', cacheK)
+    const dayAndNum = value?.split('-')
+    const day = today
+    let num = ''
+    if (!!dayAndNum && dayAndNum[0] === today) {
+      num = dayAndNum[1]
+    } else {
+      num = '1'
+    }
+    num = (Number(num) + 1).toString()
+    await this.app.redis.hset('GEN_INCR', cacheK, day + '-' + num)
+    return format('%s%s%s', prefix, day, num.toString().padStart(fillSize, '0'))
+  }
+}

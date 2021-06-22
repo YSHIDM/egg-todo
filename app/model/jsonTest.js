@@ -1,9 +1,9 @@
 /* indent size: 2 */
-/* 角色信息*/
-const moment = require('moment');
-module.exports = app => {
+/* 角色信息 */
+const moment = require('moment')
 
-  const DataTypes = app.Sequelize;
+module.exports = app => {
+  const DataTypes = app.Sequelize
 
   const Model = app.model.define('jsonTest', {
     id: {
@@ -41,7 +41,7 @@ module.exports = app => {
       allowNull: true,
       field: 'created_at',
       get() {
-        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
+        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DDHH:mm:ss')
       },
     },
     modifier: {
@@ -53,21 +53,21 @@ module.exports = app => {
       allowNull: true,
       field: 'updated_at',
       get() {
-        return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
+        return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DDHH:mm:ss')
       },
     },
   }, {
     tableName: 'json_test',
 
-  });
+  })
 
   Model.byPk = async function(pk) {
-    return await this.findByPk(pk);
-  };
+    return this.findByPk(pk)
+  }
 
   Model.associate = function() {
     // app.model.Flow.hasMany(app.model.FLowData, { foreignKey: 'flowId' });
-  };
+  }
 
-  return Model;
-};
+  return Model
+}

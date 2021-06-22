@@ -1,70 +1,60 @@
 
-const CommonBaseService = require('./commonBaseSvc');
-// const { Op } = require('sequelize')
+const CommonBaseService = require('./commonBaseSvc')
+const { QueryTypes } = require('sequelize')
 
 module.exports = class ImageStoreSvc extends CommonBaseService {
-
+  constructor(ctx) {
+    super(ctx)
+    this.model = this.ctx.model.ImageStore
+  }
   /**
    * 批量记录图片文件信息
-   * @param {array} records 图片信息数组
-   * @return {Promise<any>}
+   * @param {Array} records 图片信息数组
+   * @return {Promise<any[]>} 批量保存图片信息
    */
   async bulkCreate(records) {
-    const { ctx, app } = this;
-    const model = ctx.model.ImageStore;
-
     records = records.map(obj => {
-      obj.id = app.genId('IMG');
-      return obj;
-    });
+      obj.id = this.getId('IMG')
+      return obj
+    })
 
-    return await model.bulkCreate(records).then(data => data.map(d => d.toJSON()));
+    return await this.batchAdd(records)
   }
   /**
    * 记录图片文件信息
-   * @param {*} imageInfo 图片信息
+   * @param {any} imageInfo 图片信息
+   * @return {Promise<any>} 保存图片信息
    */
   async saveImageInfo(imageInfo) {
-    const { ctx, app } = this;
-    const model = ctx.model.ImageStore;
-
-    imageInfo.id = app.genId('IMG');
-    await model.create(imageInfo);
-    return await this.byPk(imageInfo.id);
+    imageInfo.id = this.getId('IMG')
+    await this.model.create(imageInfo)
+    return this.byPk(imageInfo.id)
   }
   /**
-   *
+   * 按外键查询图片信息
    * @param {string} foreignKey 外键
-   * @param {*} sourceType 来源类型
+   * @param {any} sourceType 来源类型
+   * @return {Promise<any[]>} 图片信息列表
    */
   async getImageByForeign(foreignKey, sourceType) {
-    const model = this.ctx.model.ImageStore;
-    return await model.findAll({
+    return this.model.findAll({
       where: {
         foreignKey,
         sourceType,
       },
-    });
+    })
   }
   /**
    * 修改文件信息
    * @param {any} imageInfo 图片信息
+   * @return {Promise<any>} 图片信息
    */
   async uploadImageByForeignKey(imageInfo) {
-    const model = this.ctx.model.ImageStore;
-    return await model.update(imageInfo, {
+    return this.model.update(imageInfo, {
       where: {
         id: imageInfo.id,
       },
-    });
-  }
-  /**
-   * 按主键查询
-   * @param {string} pk 主键
-   */
-  async byPk(pk) {
-    const model = this.ctx.model.ImageStore;
-    return await model.findByPk(pk);
+    })
   }
   // /**
   //    * 按时间分组获取文件大小及上传日期
@@ -78,24 +68,22 @@ module.exports = class ImageStoreSvc extends CommonBaseService {
   //    * @param size 分组文件大小，返回字段名称，默认：size
   //    */
   async getGroupByDate(unit, start, end, date = 'date', size = 'size') {
-    const { app } = this;
-    const sql = `SELECT date_part('${ unit }', updated_at) AS ${ date }, sum(size) AS ${ size }
+    const sql = `SELECT date_part('${unit}', updated_at) AS ${date}, sum(size) AS ${size}
         FROM image_store
-        where updated_at BETWEEN '${ start }' and date'${ end }'
-        GROUP BY ${ date } ORDER BY ${ date } asc`;
-    return app.model.query(sql, { type: app.Sequelize.QueryTypes.SELECT });
+        where updated_at BETWEEN '${start}' and date'${end}'
+        GROUP BY ${date} ORDER BY ${date} asc`
+    return this.model.query(sql, { type: QueryTypes.SELECT })
   }
   // /**
   //  * 按上传日期查询
   //  * @param date 上传日期
   //  */
   async getImageByUpdatedAt(date) {
-    const { app } = this;
     const sql = `SELECT "id", "foreign_key" AS "foreignKey",
         "source_type" AS "sourceType", "filename", "size", "url", "path",
         "creator", "created_at" AS "createdAt", "modifier",
         "updated_at" AS "updatedAt" FROM "image_store" AS "imageStore"
-        where date(updated_at) = '${ date }'`;
-    return app.model.query(sql, { type: app.Sequelize.QueryTypes.SELECT });
+        where date(updated_at) = '${date}'`
+    return this.model.query(sql, { type: QueryTypes.SELECT })
   }
-};
+}

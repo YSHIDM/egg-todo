@@ -33,6 +33,7 @@
     "no-bitwise": "off",
     "space-before-blocks": "error",
     "array-bracket-spacing": "off",
+    "dot-notation": "off",
     "indent": [
       "error",
       2

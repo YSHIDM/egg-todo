@@ -1,6 +1,6 @@
 const fs = require('fs')
+
 const { promises: fsp } = fs
-const path = require('path')
 const util = require('util')
 // const gm = require('gm')
 // gm.prototype.writePromise = util.promisify(gm.prototype.write)
@@ -9,11 +9,11 @@ const util = require('util')
  * 在 prePath 位置新建形如“YYYY/MM/DD”三层文件夹,并返回创建文件路径
  * @param {string} prePath 新建文件夹位置
  * @param {string} filename 文件名称
- * @returns {Promise<string>} 新建文件文件路径
+ * @return   {Promise<string>}新建文件文件路径
  */
-let makeFilePath = async (prePath, filename) => {
+const makeFilePath = async (prePath, filename) => {
   const now = new Date()
-  const filePath = prePath + `/${now.getFullYear()}/${now.getMonth()}/${now.getDate()}/`
+  const filePath = `${prePath}/${now.getFullYear()}/${now.getMonth()}/${now.getDate()}/`
   fsp.mkdir(filePath, { recursive: true })
   return filePath + filename
 }
@@ -21,22 +21,24 @@ let makeFilePath = async (prePath, filename) => {
 /**
  * 获取文件大小
  * @param {string} filePath 文件路径
- * @returns {Promise<number>} 文件大小
+ * @return {Promise<number>}文件大小
  */
-let getFileSize = async filePath => (await fsp.stat(filePath)).size
+const getFileSize = async filePath => (await fsp.stat(filePath)).size
 
 /**
- *
- * @param {{filepath:string}[]} files
+ * 批量删除文件
+ * @param {{filepath:string}[]} files 文件列表
+ * @return {Promise<void>} 批量删除文件
  */
-let bulkUnLink = async files => files.forEach(file => fsp.unlink(file.filepath))
+const bulkUnLink = async files => files.forEach(file => fsp.unlink(file.filepath))
 
-/**
- * 按临界值压缩上传图片,移动至存储位置,并返回文件大小
- * @param {number} criticalSize 图片压缩临界大小
- * @param {string} oldPath 旧地址
- * @param {string} newPath 新地址
- */
+// /**
+//  * 按临界值压缩上传图片,移动至存储位置,并返回文件大小
+//  * @param {number} criticalSize 图片压缩临界大小
+//  * @param {string} oldPath 旧地址
+//  * @param {string} newPath 新地址
+//  * @param filePath
+//  */
 // let renameAndGetSize = async (criticalSize, oldPath, newPath) => {
 //   let promises = fs.promises
 //   /**
@@ -53,16 +55,22 @@ let bulkUnLink = async files => files.forEach(file => fsp.unlink(file.filepath))
 //       .strip()
 //       .autoOrient()
 //       .writePromise(newPath)
-//     return (await promises.stat(newPath)).size
+//     return   (awaitpromises.stat(newPath)).size
 //   } else {
 //     /**
 //          * 移动文件
 //          */
 //     await promises.rename(oldPath, newPath)
-//     return size
+//     return  size
 //   }
 // }
-let exists = async (filePath) => util.promisify(fs.exists)(filePath)
+
+/**
+ * 文件是否存在
+ * @param {string} filePath 文件路径
+ * @return {boolean} 文件是否存在
+ */
+const exists = async filePath => util.promisify(fs.exists)(filePath)
 module.exports = {
   makeFilePath,
   getFileSize,

@@ -1,9 +1,9 @@
 /* indent size: 2 */
-/* 图片信息*/
-const moment = require('moment');
-module.exports = app => {
+/* 图片信息 */
+const moment = require('moment')
 
-  const DataTypes = app.Sequelize;
+module.exports = app => {
+  const DataTypes = app.Sequelize
 
   const Model = app.model.define('imageStore', {
     id: {
@@ -47,7 +47,7 @@ module.exports = app => {
       allowNull: true,
       field: 'created_at',
       get() {
-        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
+        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DDHH:mm:ss')
       },
     },
     modifier: {
@@ -59,20 +59,20 @@ module.exports = app => {
       allowNull: true,
       field: 'updated_at',
       get() {
-        return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
+        return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DDHH:mm:ss')
       },
     },
   }, {
     tableName: 'image_store',
 
-  });
+  })
 
   Model.byPk = async function(pk) {
-    return await this.findByPk(pk);
-  };
+    return this.findByPk(pk)
+  }
 
   Model.associate = function() {
-  };
+  }
 
-  return Model;
-};
+  return Model
+}

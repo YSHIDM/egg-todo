@@ -1,23 +1,10 @@
 const fileUtil = require('../util/fileUtil')
 const CONSTANT = require('../util/constant')
 const resInfo = require('../util/resInfo')
-const crypto = require('../util/cryptoHelper');
-const math = require('../util/math');
-const helper = {
-  parseMsg(action, payload = {}, metadata = {}) {
-    const meta = Object.assign({}, {
-      timestamp: Date.now(),
-    }, metadata)
+const crypto = require('../util/cryptoHelper')
+const math = require('../util/math')
 
-    return {
-      meta,
-      data: {
-        action,
-        payload,
-      },
-    };
-  }
-}
+const helper = {}
 Object.assign(helper, { fileUtil })
 Object.assign(helper, { CONSTANT })
 Object.assign(helper, resInfo)

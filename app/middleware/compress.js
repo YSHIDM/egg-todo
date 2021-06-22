@@ -1,1 +1,1 @@
-module.exports = require('koa-compress');
+module.exports = require('koa-compress')

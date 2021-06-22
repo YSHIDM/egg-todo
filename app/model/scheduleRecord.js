@@ -1,8 +1,8 @@
-/* 图片信息*/
-const moment = require('moment');
-module.exports = app => {
+/* 图片信息 */
+const moment = require('moment')
 
-  const { DataTypes: { STRING, DATE, JSON, INTEGER } } = app.Sequelize;
+module.exports = app => {
+  const { DataTypes: { STRING, DATE, JSON, INTEGER } } = app.Sequelize
 
   const Model = app.model.define('scheduleRecord', {
     id: {
@@ -67,7 +67,7 @@ module.exports = app => {
       field: 'created_at',
       comment: '创建时间',
       get() {
-        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
+        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DDHH:mm:ss')
       },
     },
     // 修改人
@@ -84,12 +84,12 @@ module.exports = app => {
       comment: '修改时间',
       get() {
         return this.getDataValue('modifier') ?
-          moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss') : null;
+          moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss') : null
       },
     },
   }, {
     tableName: 'schedule_record',
-  });
+  })
 
-  return Model;
-};
+  return Model
+}

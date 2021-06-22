@@ -1,7 +1,7 @@
 // app.js
 class AppBootHook {
   constructor(app) {
-    this.app = app;
+    this.app = app
   }
 
   // configWillLoad() {
@@ -31,24 +31,24 @@ class AppBootHook {
 
   async didReady() {
     // 应用已经启动完毕
-    this.app.emit('reloadScheduleList');
+    this.app.emit('reloadScheduleList')
   }
 
   async serverDidReady() {
     // serverDidReady
     // const alinode:any = { process }
     // log('process.versions', alinode);
-    const ctx = this.app.createAnonymousContext();
+    const ctx = this.app.createAnonymousContext()
     this.app.messenger.on('work', scheduleRecord => {
-      ctx.service.scheduleRecordSvc.execCallback(scheduleRecord);
-    });
+      ctx.service.scheduleRecordSvc.execCallback(scheduleRecord)
+    })
   }
   // async beforeClose() {
   //   // 应用即将关闭
   // }
 }
 
-module.exports = AppBootHook;
+module.exports = AppBootHook
 
 // module.exports = app => {
 //   app.beforeStart(async () => {

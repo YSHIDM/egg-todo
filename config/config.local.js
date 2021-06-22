@@ -4,7 +4,7 @@ module.exports = () => {
   /**
      * built-in config
      * @type {Egg.EggAppConfig}
-     **/
+     * */
   const config = exports = {}
 
   config.sequelize = {
@@ -21,8 +21,8 @@ module.exports = () => {
   }
   config.redis = {
     client: {
-      port: 6378,          // Redis port
-      host: '127.0.0.1',   // Redis host
+      port: 6378, // Redis port
+      host: '127.0.0.1', // Redis host
       password: '123456',
       db: 0,
     },

@@ -6,7 +6,7 @@ module.exports = {
   },
   Query: {
     getAllTodoNode(_root, _obj, ctx) {
-      return ctx.connector.todoNode.getAllTodoNode();
+      return ctx.connector.todoNode.getAllTodoNode()
     },
   },
-};
+}

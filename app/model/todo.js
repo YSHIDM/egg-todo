@@ -1,9 +1,8 @@
 /* indent size: 2 */
-/* 图片信息*/
-const moment = require('moment');
-module.exports = app => {
+/* 图片信息 */
 
-  const { STRING, TIME, BOOLEAN, JSON } = app.Sequelize.DataTypes;
+module.exports = app => {
+  const { STRING, TIME, BOOLEAN, JSON } = app.Sequelize.DataTypes
 
   const Model = app.model.define('todo', {
     id: {
@@ -61,14 +60,14 @@ module.exports = app => {
     },
   }, {
     tableName: 'todo',
-  });
+  })
 
   Model.byPk = async function(pk) {
-    return await this.findByPk(pk);
-  };
+    return this.findByPk(pk)
+  }
 
   Model.associate = function() {
-  };
+  }
 
-  return Model;
-};
+  return Model
+}
