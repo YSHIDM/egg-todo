@@ -1,59 +1,37 @@
-const { Service } = require('egg')
+const CommonBaseService = require('./commonBaseSvc')
 
-module.exports = class ScheduleRecordSvc extends Service {
-  /**
-   * @param {Ctx} ctx 上下文
-   */
+module.exports = class ScheduleRecordSvc extends CommonBaseService {
   constructor(ctx) {
     super(ctx)
     this.okCode = 2000
+    this.model = this.ctx.model.ScheduleRecord
   }
   /**
    * 添加定时器信息
    * @param {any} obj 定时器信息
-   * @return {any}定时器
+   * @return {Promise<any>}定时器
    */
   async addScheduleRecord(obj) {
-    const model = this.ctx.model.ScheduleRecord
-    obj.id = this.app.genId('SDR')
+    obj.id = this.getId('SDR')
     obj.state = 1
     obj.creator = this.ctx.state.user.userId
-    return model.create(obj).then(d => d.toJSON())
-  }
-  /**
-   * 修改定时器信息
-   * @param {any} obj 定时器信息
-   * @return {any}定时器
-   */
-  async updateScheduleRecord(obj) {
-    obj.modifier = this.ctx.state.user.userId
-    const model = this.ctx.model.ScheduleRecord
-    return model.update(obj, {
-      where: {
-        id: obj.id,
-      },
-      returning: true,
-    }).then(result => result[1].map(i => i.toJSON())[0])
+    return this.model.create(obj).then(d => d.toJSON())
   }
   /**
    * 按id查询定时器信息
    * @param {any} id 定时器id
-   * @return {any} 定时器
+   * @return {Promise<any>} 定时器
    */
   async byPk(id) {
-    const model = this.ctx.model.ScheduleRecord
-    return model.findByPk(id, { raw: true })
+    return this.model.findByPk(id, { raw: true })
   }
   /**
    * 按条件查询定时器信息
    * @param {any} where 查询条件
-   * @return {any} 定时器
+   * @return {Promise<any>} 定时器
    */
   async getScheduleRecord(where) {
-    const model = this.ctx.model.ScheduleRecord
-    let scheduleRecord = await model.findOne({
-      where,
-    })
+    let scheduleRecord = await this.model.findOne({ where })
     if (!scheduleRecord) {
       scheduleRecord = null
     } else {
@@ -67,24 +45,25 @@ module.exports = class ScheduleRecordSvc extends Service {
   /**
    * 保存定时器
    * @param {any} obj 定时器信息
-   * @return {any} 定时器
+   * @return {Promise<any>} 定时器
    */
   async saveScheduleRecord(obj) {
     const scheduleRecord = await this.getScheduleRecord({ type: obj.type })
     let data
     if (scheduleRecord) {
       obj.id = scheduleRecord.id
-      data = await this.updateScheduleRecord(obj)
+      data = await this.update(obj)
     } else {
       data = await this.addScheduleRecord(obj)
     }
     this.app.messenger.sendToAgent('loadSchedule', data)
     return data
   }
-  // /**
-  //  * 针对消息设置的保存定时器消息
-  //  * @param obj 定时器消息
-  //  */
+  /**
+   * 针对消息设置的保存定时器消息
+   * @param obj 定时器消息
+   * @return {Promise<{code: number; data: any;}>} 返回值
+   */
   async saveScheduleRecordForMessage(obj) {
     const type = 'test' // this.ctx.app.config.DEFDOC_CONST.FixBackAndContract[obj.sourceId];
     obj.type = type
@@ -96,7 +75,7 @@ module.exports = class ScheduleRecordSvc extends Service {
     if (obj.id) {
       const scheduleRecord = await this.byPk(obj.id)
       if (!scheduleRecord) {
-        return this.ctx.helper.getInfo(15001, null)
+        return { code: 15001, data: null }
       }
     }
     const data = await this.saveScheduleRecord(obj)
@@ -106,7 +85,7 @@ module.exports = class ScheduleRecordSvc extends Service {
   /**
    * 按来源id查询定时器信息
    * @param {string} sourceId 来源id
-   * @return {ApiResult} 返回值
+   * @return {Promise<{code: number; data: any;}>} 返回值
    */
   async getScheduleRecordBySourceId(sourceId) {
     const data = await this.getScheduleRecord({ sourceId })

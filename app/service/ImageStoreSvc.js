@@ -44,18 +44,6 @@ module.exports = class ImageStoreSvc extends CommonBaseService {
       },
     })
   }
-  /**
-   * 修改文件信息
-   * @param {any} imageInfo 图片信息
-   * @return {Promise<any>} 图片信息
-   */
-  async uploadImageByForeignKey(imageInfo) {
-    return this.model.update(imageInfo, {
-      where: {
-        id: imageInfo.id,
-      },
-    })
-  }
   // /**
   //    * 按时间分组获取文件大小及上传日期
   //    * @param {string} unit 时间单位

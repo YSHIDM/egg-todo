@@ -7,6 +7,7 @@ module.exports = class TodoNodeSvc extends Service {
   constructor(ctx) {
     super(ctx)
     this.CONSTANT = this.app['constant'].common
+    this.STATUS_CODE = this.app.config.STATUS_CODE;
   }
   /**
    * 捕获异常统一接口
@@ -56,7 +57,7 @@ module.exports = class TodoNodeSvc extends Service {
   }
   /**
    * 按名称列表获取节点标题列表
-   * @param {string} names 节点名称
+   * @param {string[]} names 节点名称
    * @return {Promise<string[]>} 标题列表
    */
   async getTodoNodeTitlesByNames(names) {

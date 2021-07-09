@@ -60,9 +60,8 @@ module.exports = app => {
   Model.byPk = async function(pk) {
     return this.findByPk(pk)
   }
-
-  Model.associate = function() {
-  }
+  // Model.associate = function() {
+  // }
 
   return Model
 }

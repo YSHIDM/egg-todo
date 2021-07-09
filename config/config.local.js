@@ -2,15 +2,14 @@
 
 module.exports = () => {
   /**
-     * built-in config
-     * @type {Egg.EggAppConfig}
-     * */
+   * @type {any} 配置
+   */
   const config = exports = {}
 
   config.sequelize = {
     dialect: 'postgres', // support: mysql, mariadb, postgres, mssql
     host: 'localhost',
-    port: 5434,
+    port: 5435,
     username: 'postgres',
     password: 'postgres',
     database: 'test',

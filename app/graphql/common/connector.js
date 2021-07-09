@@ -14,7 +14,7 @@ class CommonConnector {
    * 捕获异常统一接口
    * @param {string} func service 方法
    * @param {any[]} params 参数数组
-   * @return {any} 接口返回值
+   * @return {Promise<any>} 接口返回值
    */
   async catchError(func, params) {
     return this.service.catchError('commonSvc', func, params)
@@ -25,7 +25,7 @@ class CommonConnector {
    * 捕获异常统一接口
    * @param {string} func service 方法
    * @param {any[]} params 参数数组
-   * @return {any} 接口返回值
+   * @return {Promise<any>} 接口返回值
    */
   async catchDataLoaderError(func, params) {
     return this.service.catchDataLoaderError('commonSvc', func, params)
@@ -33,7 +33,7 @@ class CommonConnector {
   /**
    * 根据待办结点名称获取待办结点标题
    * @param {any[]} params 参数
-   * @return {any} 接口返回值
+   * @return {Promise<any>} 接口返回值
    */
   async getTodoNodeTitlesByNames(params) {
     return this.catchDataLoaderError('getTodoNodeTitlesByNames', params)
@@ -41,7 +41,7 @@ class CommonConnector {
   /**
    * 根据待办结点名称获取待办结点标题
    * @param {string} name 参数
-   * @return {any} 接口返回值
+   * @return {Promise<Error>} 接口返回值
    */
   async getTodoNodeTitleByName(name) {
     if (!name) {

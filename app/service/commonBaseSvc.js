@@ -42,12 +42,8 @@ module.exports = class CommonBaseService extends Service {
    * @return {Promise<any>} model数据
    */
   async getData(where = void 0) {
-    return this.model.findOne({ where }).then(d => {
-      if (!d) {
-        return null
-      }
-      return d.toJSON()
-    })
+    return this.model.findOne({ where })
+      .then(d => d.toJSON())
   }
   /**
    * 按条件查询数据列表
@@ -88,10 +84,7 @@ module.exports = class CommonBaseService extends Service {
       },
       // individualHooks: true,
       returning: true,
-    }).then(ds => {
-      const dsInfo = ds[1].map(i => i.toJSON())
-      return dsInfo[0]
-    })
+    }).then(ds => ds[1].map(i => i.toJSON())[0])
   }
   /**
    * 按条件删除记录

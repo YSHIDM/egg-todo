@@ -2,11 +2,9 @@
 
 module.exports = () => {
   /**
-     * built-in config
-     * @type {Egg.EggAppConfig}
-     * */
+   * @type {any} 配置
+   */
   const config = exports = {}
-
   config.sequelize = {
     dialect: 'postgres',
     host: 'localhost',
