@@ -18,15 +18,10 @@ class AppBootHook {
     //   await this.app.redis.set('room:demo', 'demo');
     // }
     // console.info('willReady');
-    this.agent.messenger.on('loadSchedule', async scheduleRecord => {
-      this.loadSchedule(scheduleRecord)
-    })
+    this.agent.messenger.on('loadSchedule', this.loadSchedule)
     // 用定时器记录的 id 做定时器名字
-    this.agent.messenger.on('cancelJobByName', async scheduleName => {
-      schedule.cancelJob(scheduleName)
-    })
+    this.agent.messenger.on('cancelJobByName', schedule.cancelJob)
     this.agent.messenger.on('reloadScheduleList', async ctx => {
-      console.info('reloadScheduleList')
       for (const jobName in schedule.scheduledJobs) {
         const job = schedule.scheduledJobs[jobName]
         job.cancel()
@@ -50,7 +45,7 @@ class AppBootHook {
    * @param {any} scheduleRecord 定时器记录
    * @return {void}
    */
-  async setSchedule(scheduleRecord) {
+  setSchedule(scheduleRecord) {
     /**
      * cron表达式
      * 结构：秒 分 时 日 月 年
@@ -59,7 +54,7 @@ class AppBootHook {
     // let cron = ['*', '*', '*', '*', '*', '*'].join(' ');// 测试
     // 用定时器记录的 id 做定时器名字
     schedule.scheduleJob(scheduleRecord.id, cron, () => {
-      this.agent.messenger.sendRandom('work', scheduleRecord)
+      this.agent.messenger.sendRandom(scheduleRecord.action, scheduleRecord)
     })
   }
   /**
@@ -67,7 +62,7 @@ class AppBootHook {
    * @param {any} scheduleRecord 定时器记录
    * @return {void}
    */
-  async loadSchedule(scheduleRecord) {
+  loadSchedule(scheduleRecord) {
     /*
      * scheduledJobs 包含了所有时间表和任务名（或type）
      */
@@ -85,7 +80,7 @@ class AppBootHook {
   /**
    * 初始化定时器列表
    * @param {any} ctx 上下文
-   * @return {void}
+   * @return {Promise<void>} void
    */
   async initScheduleList(ctx) {
     const model = ctx.model.ScheduleRecord

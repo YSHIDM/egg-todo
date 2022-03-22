@@ -59,11 +59,11 @@ module.exports = class ScheduleRecordSvc extends CommonBaseService {
     this.app.messenger.sendToAgent('loadSchedule', data)
     return data
   }
-  /**
-   * 针对消息设置的保存定时器消息
-   * @param obj 定时器消息
-   * @return {Promise<{code: number; data: any;}>} 返回值
-   */
+  // /**
+  //  * 针对消息设置的保存定时器消息
+  //  * @param {any} obj 定时器消息
+  //  * @return {Promise<{code: number; data: any;}>} 返回值
+  //  */
   async saveScheduleRecordForMessage(obj) {
     const type = 'test' // this.ctx.app.config.DEFDOC_CONST.FixBackAndContract[obj.sourceId];
     obj.type = type
@@ -82,11 +82,11 @@ module.exports = class ScheduleRecordSvc extends CommonBaseService {
     data.cron = [data.cron[2], data.cron[1]]
     return { code: this.okCode, data }
   }
-  /**
-   * 按来源id查询定时器信息
-   * @param {string} sourceId 来源id
-   * @return {Promise<{code: number; data: any;}>} 返回值
-   */
+  // /**
+  //  * 按来源id查询定时器信息
+  //  * @param {string} sourceId 来源id
+  //  * @return {Promise<{code: number; data: any;}>} 返回值
+  //  */
   async getScheduleRecordBySourceId(sourceId) {
     const data = await this.getScheduleRecord({ sourceId })
     if (!data) {

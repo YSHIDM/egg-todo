@@ -79,7 +79,7 @@ module.exports = class TodoSvc extends CommonBaseService {
     let where = {}
     const todo = await this.byPk(id)
     if (!nextNode[todo.node]) {
-      return {code: 8000, data: null }
+      return { code: 8000, data: null }
     }
     const node = nextNode[todo.node]
     todo.history.push({ node, time: new Date() })

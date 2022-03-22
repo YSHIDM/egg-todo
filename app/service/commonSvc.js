@@ -7,7 +7,7 @@ module.exports = class TodoNodeSvc extends Service {
   constructor(ctx) {
     super(ctx)
     this.CONSTANT = this.app['constant'].common
-    this.STATUS_CODE = this.app.config.STATUS_CODE;
+    this.STATUS_CODE = this.app.config.STATUS_CODE
   }
   /**
    * 捕获异常统一接口
@@ -131,7 +131,7 @@ module.exports = class TodoNodeSvc extends Service {
     const today = moment().format('YYYYMMDD')
     const cacheK = format('%s_ID', prefix)
     const value = await this.app.redis.hget('GEN_INCR', cacheK)
-    const dayAndNum = value?.split('-')
+    const dayAndNum = value.split('-')
     const day = today
     let num = ''
     if (!!dayAndNum && dayAndNum[0] === today) {

@@ -66,8 +66,5 @@ module.exports = app => {
     return this.findByPk(pk)
   }
 
-  Model.associate = function() {
-  }
-
   return Model
 }

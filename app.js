@@ -29,10 +29,11 @@ class AppBootHook {
   //   }
   // }
 
-  async didReady() {
-    // 应用已经启动完毕
-    this.app.emit('reloadScheduleList')
-  }
+  // async didReady() {
+  //   const ctx = this.app.createAnonymousContext()
+  //   // 应用已经启动完毕
+  //   this.app.emit('reloadScheduleList')
+  // }
 
   async serverDidReady() {
     // serverDidReady
