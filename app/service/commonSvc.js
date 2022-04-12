@@ -57,12 +57,12 @@ module.exports = class TodoNodeSvc extends Service {
   }
   /**
    * 按名称列表获取节点标题列表
-   * @param {string[]} names 节点名称
+   * @param {string} name 节点名称
    * @return {Promise<string[]>} 标题列表
    */
-  async getTodoNodeTitlesByNames(names) {
+  async getTodoNodeTitleByName(name) {
     const allTodoNodeMap = await this.service.todoNodeSvc.getAllTodoNodeMap()
-    return await names.map(name => allTodoNodeMap.get(name))
+    return allTodoNodeMap.get(name)
   }
   // /**
   //  * 分页查询总接口
@@ -131,7 +131,7 @@ module.exports = class TodoNodeSvc extends Service {
     const today = moment().format('YYYYMMDD')
     const cacheK = format('%s_ID', prefix)
     const value = await this.app.redis.hget('GEN_INCR', cacheK)
-    const dayAndNum = value?.split('-')
+    const dayAndNum = value.split('-')
     const day = today
     let num = ''
     if (!!dayAndNum && dayAndNum[0] === today) {

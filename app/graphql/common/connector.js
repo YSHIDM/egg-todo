@@ -36,7 +36,7 @@ class CommonConnector {
    * @return {Promise<any>} 接口返回值
    */
   async getTodoNodeTitlesByNames(params) {
-    return this.catchDataLoaderError('getTodoNodeTitlesByNames', params)
+    return this.catchDataLoaderError('getTodoNodeTitleByName', params)
   }
   /**
    * 根据待办结点名称获取待办结点标题

@@ -62,12 +62,5 @@ module.exports = app => {
     tableName: 'todo',
   })
 
-  Model.byPk = async function(pk) {
-    return this.findByPk(pk)
-  }
-
-  Model.associate = function() {
-  }
-
   return Model
 }

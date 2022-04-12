@@ -24,7 +24,7 @@ module.exports = {
     const today = moment().format('YYYYMMDD')
     const cacheK = format('%s_ID', prefix)
     const value = await this.redis.hget('GEN_INCR', cacheK)
-    const dayAndNum = value?.split('-')
+    const dayAndNum = value.split('-')
     const day = today
     let num = ''
     if (!!dayAndNum && dayAndNum[0] === today) {

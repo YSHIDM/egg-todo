@@ -24,7 +24,7 @@ module.exports = app => {
       type: STRING(10),
       allowNull: true,
     },
-    sort: {
+    index: {
       type: INTEGER,
       allowNull: false,
     },
