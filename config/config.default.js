@@ -3,13 +3,10 @@
 const path = require('path')
 const SYS_SETTING = require('../app/constant/sysSetting')
 const { STATUS_CODE, CODE_MSG_MAP } = require('../app/constant/statusCode')
-/**
- * @param {Egg.EggAppInfo} appInfo app info
- */
 module.exports = appInfo => {
   /**
    * built-in config
-   * @type {Egg.EggAppConfig}
+   * @type {any}
    * */
   const config = exports = {}
 

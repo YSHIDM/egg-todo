@@ -7,7 +7,7 @@ module.exports = class TodoNodeSvc extends Service {
   constructor(ctx) {
     super(ctx)
     this.CONSTANT = this.app['constant'].common
-    this.STATUS_CODE = this.app.config.STATUS_CODE;
+    this.STATUS_CODE = this.app.config.STATUS_CODE
   }
   /**
    * 捕获异常统一接口
