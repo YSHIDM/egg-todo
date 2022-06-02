@@ -20,7 +20,7 @@
 -- Sequence structure for cities_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."cities_id_seq";
-CREATE SEQUENCE "public"."cities_id_seq" 
+CREATE SEQUENCE "public"."cities_id_seq"
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 2147483647
@@ -196,23 +196,23 @@ ALTER TABLE "public"."todo" OWNER TO "postgres";
 -- Records of todo
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."todo" VALUES ('TODOtssFGkKVFm', '一段文字', '以上这些聚合函数中，可以通过options.attributes、options.attributes属性指定分组相关字段', 'done', 't', 'f', NULL, '2020-12-24 17:12:03.869', NULL, '2020-12-30 12:00:24.918', '[{"node": "plan", "time": "2020-12-24T09:12:03.868Z"}, {"node": "inProgress", "time": "2020-12-24T09:16:55.012Z"}]');
-INSERT INTO "public"."todo" VALUES ('TODOdnLeoJJUz', '测试一', '测试 123', 'plan', 'f', 't', NULL, '2020-12-30 14:13:04.92', NULL, '2020-12-30 16:52:57.705', '[{"node": "plan", "time": "2020-12-30T06:13:04.919Z"}]');
-INSERT INTO "public"."todo" VALUES ('216969987dc34ecdb9a110fc73c07e97', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('c9aadd560fba4fc6aa1a317387860c8d', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('f6346ca7fd12496aa50f1723d0fc3622', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('499f7a11194b46d282b88b0c304b25ec', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('6dfe591c0f854cbda137280b2a06e14b', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('TODO3TZ428AXm', '步骤条', '用于展示操作流程的各个环节，让用户了解当前的操作在整体流程中的位置。', 'plan', 'f', 'f', NULL, '2020-12-30 13:53:43.294', NULL, '2020-12-30 13:53:43.294', '[{"node": "todo", "time": "2020-12-30T05:53:43.282Z"}]');
-INSERT INTO "public"."todo" VALUES ('21002d86f7cb4c63bb426e29dab4c4a8', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('1f224723f4004f1f84b4d4751493d5c2', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('TODOd_0OzNR5-', 'vue', '以上这些聚合函数中，可以通过options.attributes、options.attributes属性指定分组相关字段', 'plan', 'f', 'f', NULL, '2020-12-30 14:17:40.733', NULL, '2020-12-30 14:28:08.027', '[{"node": "plan", "time": "2020-12-30T06:17:40.733Z"}]');
-INSERT INTO "public"."todo" VALUES ('TODOJ3ndEWn5H6', '咨询', '周六咨询', 'inProgress', 'f', 'f', NULL, '2020-12-25 11:32:27.703', NULL, '2020-12-30 15:20:35.417', '[{"node": "plan", "time": "2020-12-25T03:32:27.703Z"}, {"node": "inProgress", "time": "2020-12-30T07:20:35.417Z"}]');
-INSERT INTO "public"."todo" VALUES ('8f1f675f79804e4493b95eb97c7c5103', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('50ecba6042a146bc9389ab057f64d9a4', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('c879604ea8874d82a8db57471733f40e', '测试', '内容', 'plan', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."todo" VALUES ('TODOWovQqtBbVd', '测试一', '测试二', 'done', 't', 'f', NULL, '2020-12-25 15:23:53.453', NULL, '2020-12-30 15:21:09.482', '[{"node": "plan", "time": "2020-12-25T07:23:53.453Z"}, {"node": "inProgress", "time": "2020-12-28T08:00:48.224Z"}, {"node": "testing", "time": "2020-12-30T07:20:45.340Z"}, {"node": "done", "time": "2020-12-30T07:21:06.041Z"}]');
-INSERT INTO "public"."todo" VALUES ('TODOF3RCTnjMKn', '测试', '测试', 'done', 't', 'f', NULL, '2020-12-25 15:07:10.721', NULL, '2020-12-30 15:21:11.759', '[{"node": "plan", "time": "2020-12-25T07:07:10.721Z"}, {"node": "testing", "time": "2020-12-30T05:46:51.013Z"}, {"node": "done", "time": "2020-12-30T05:47:02.891Z"}]');
+INSERT INTO "public"."todo" VALUES ('TODOtssFGkKVFm', '一段文字', '以上这些聚合函数中，可以通过options.attributes、options.attributes属性指定分组相关字段', 'done', 't', 'f', NULL, '2020-12-24 17:12:03.869', NULL, '2020-12-30 12:00:24.918', '[{"node": "planning", "time": "2020-12-24T09:12:03.868Z"}, {"node": "inProgress", "time": "2020-12-24T09:16:55.012Z"}]');
+INSERT INTO "public"."todo" VALUES ('TODOdnLeoJJUz', '测试一', '测试 123', 'planning', 'f', 't', NULL, '2020-12-30 14:13:04.92', NULL, '2020-12-30 16:52:57.705', '[{"node": "planning", "time": "2020-12-30T06:13:04.919Z"}]');
+INSERT INTO "public"."todo" VALUES ('216969987dc34ecdb9a110fc73c07e97', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('c9aadd560fba4fc6aa1a317387860c8d', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('f6346ca7fd12496aa50f1723d0fc3622', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('499f7a11194b46d282b88b0c304b25ec', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('6dfe591c0f854cbda137280b2a06e14b', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('TODO3TZ428AXm', '步骤条', '用于展示操作流程的各个环节，让用户了解当前的操作在整体流程中的位置。', 'planning', 'f', 'f', NULL, '2020-12-30 13:53:43.294', NULL, '2020-12-30 13:53:43.294', '[{"node": "todo", "time": "2020-12-30T05:53:43.282Z"}]');
+INSERT INTO "public"."todo" VALUES ('21002d86f7cb4c63bb426e29dab4c4a8', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('1f224723f4004f1f84b4d4751493d5c2', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('TODOd_0OzNR5-', 'vue', '以上这些聚合函数中，可以通过options.attributes、options.attributes属性指定分组相关字段', 'planning', 'f', 'f', NULL, '2020-12-30 14:17:40.733', NULL, '2020-12-30 14:28:08.027', '[{"node": "planning", "time": "2020-12-30T06:17:40.733Z"}]');
+INSERT INTO "public"."todo" VALUES ('TODOJ3ndEWn5H6', '咨询', '周六咨询', 'inProgress', 'f', 'f', NULL, '2020-12-25 11:32:27.703', NULL, '2020-12-30 15:20:35.417', '[{"node": "planning", "time": "2020-12-25T03:32:27.703Z"}, {"node": "inProgress", "time": "2020-12-30T07:20:35.417Z"}]');
+INSERT INTO "public"."todo" VALUES ('8f1f675f79804e4493b95eb97c7c5103', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('50ecba6042a146bc9389ab057f64d9a4', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('c879604ea8874d82a8db57471733f40e', '测试', '内容', 'planning', 'f', 'f', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."todo" VALUES ('TODOWovQqtBbVd', '测试一', '测试二', 'done', 't', 'f', NULL, '2020-12-25 15:23:53.453', NULL, '2020-12-30 15:21:09.482', '[{"node": "planning", "time": "2020-12-25T07:23:53.453Z"}, {"node": "inProgress", "time": "2020-12-28T08:00:48.224Z"}, {"node": "testing", "time": "2020-12-30T07:20:45.340Z"}, {"node": "done", "time": "2020-12-30T07:21:06.041Z"}]');
+INSERT INTO "public"."todo" VALUES ('TODOF3RCTnjMKn', '测试', '测试', 'done', 't', 'f', NULL, '2020-12-25 15:07:10.721', NULL, '2020-12-30 15:21:11.759', '[{"node": "planning", "time": "2020-12-25T07:07:10.721Z"}, {"node": "testing", "time": "2020-12-30T05:46:51.013Z"}, {"node": "done", "time": "2020-12-30T05:47:02.891Z"}]');
 COMMIT;
 
 -- ----------------------------
@@ -237,7 +237,7 @@ ALTER TABLE "public"."todo_node" OWNER TO "postgres";
 -- Records of todo_node
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."todo_node" VALUES ('TONO4tIDXRDZza', 'plan', '待办', '计划', NULL, '2021-02-23 10:36:56.798', NULL, '2021-02-23 10:36:56.798', 0);
+INSERT INTO "public"."todo_node" VALUES ('TONO4tIDXRDZza', 'planning', '待办', '计划', NULL, '2021-02-23 10:36:56.798', NULL, '2021-02-23 10:36:56.798', 0);
 INSERT INTO "public"."todo_node" VALUES ('TONOy1Dde8btfog', 'inProgress', '进行中', '进行', NULL, '2021-02-23 10:36:56.798', NULL, '2021-02-23 10:36:56.798', 1);
 INSERT INTO "public"."todo_node" VALUES ('TONOSnc---Ah6nc', 'testing', '测试中', '测试', NULL, '2021-02-23 10:36:56.798', NULL, '2021-02-23 10:36:56.798', 2);
 INSERT INTO "public"."todo_node" VALUES ('TONOWiIlo22Gq3x', 'done', '已完成', '完成', NULL, '2021-02-23 10:36:56.798', NULL, '2021-02-23 10:36:56.798', 3);

@@ -14,7 +14,7 @@ module.exports = class ScheduleRecordSvc extends CommonBaseService {
   async addScheduleRecord(obj) {
     obj.id = this.getId('SDR')
     obj.state = 1
-    obj.creator = this.ctx.state.user.userId
+    obj.creator = 'YSHI'
     return this.model.create(obj).then(d => d.toJSON())
   }
   /**

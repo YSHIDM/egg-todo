@@ -28,7 +28,10 @@ module.exports = app => {
       type: INTEGER,
       allowNull: false,
     },
-
+    sort: {
+      type: INTEGER,
+      allowNull: true,
+    },
     creator: {
       type: STRING(50),
       allowNull: true,

@@ -16,7 +16,7 @@ module.exports = class TodoNodeSvc extends CommonBaseService {
    */
   async addTodoNode(obj) {
     obj.id = this.getId('TONO')
-    // obj.creator = this.ctx.state.user.userId;
+    obj.creator = 'YSHI'
     return this.model.create(obj).then(d => d.toJSON())
   }
   /**
@@ -32,7 +32,15 @@ module.exports = class TodoNodeSvc extends CommonBaseService {
     })
     return await this.batchAdd(objArray)
   }
-
+  async saveTodoNode(obj) {
+    let data = null
+    if (!obj.id) {
+      data = await this.addTodoNode(obj)
+    } else {
+      data = await this.update(obj)
+    }
+    return { code: 2000, data }
+  }
 
   async saveAllTodoNode(objList) {
     await this.model.destroy()

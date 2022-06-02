@@ -12,6 +12,14 @@ class TodoNodeConnector {
     return this.ctx.service.commonSvc.catchError('todoNodeSvc', func, params)
   }
   /**
+   * 保存任务节点
+   * @param  {...any} params 参数
+   * @return {Promise<any>} 接口返回值
+   */
+  async saveTodoNode(...params) {
+    return await this.catchError('saveTodoNode', params)
+  }
+  /**
    * 保存任务节点列表
    * @param  {...any} params 参数
    * @return {Promise<any>} 接口返回值

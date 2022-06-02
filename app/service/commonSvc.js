@@ -57,12 +57,12 @@ module.exports = class TodoNodeSvc extends Service {
   }
   /**
    * 按名称列表获取节点标题列表
-   * @param {string} name 节点名称
+   * @param {string[]} nameList 节点名称
    * @return {Promise<string[]>} 标题列表
    */
-  async getTodoNodeTitleByName(name) {
+  async getTodoNodeTitlesByNames(nameList) {
     const allTodoNodeMap = await this.service.todoNodeSvc.getAllTodoNodeMap()
-    return allTodoNodeMap.get(name)
+    return nameList.map(name => allTodoNodeMap.get(name))
   }
   // /**
   //  * 分页查询总接口

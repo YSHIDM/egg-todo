@@ -75,7 +75,7 @@ module.exports = class CommonBaseService extends Service {
    * @return {Promise<any>} model数据
    */
   async update(obj) {
-    obj.modifier = this.ctx.state.user.userId
+    obj.modifier = 'YSHI'
     return this.model.update(obj, {
       where: {
         id: {

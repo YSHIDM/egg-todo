@@ -15,13 +15,15 @@ module.exports = class TodoSvc extends CommonBaseService {
   async addTodo(obj) {
     obj.id = this.getId('TODO')
     obj.index = 0
+    obj.node = 'planning'
     obj.isArchive = false
     obj.isClose = false
     obj.history = [{
       index: obj.index,
+      node: obj.node,
       time: new Date(),
     }]
-    // obj.creator = this.ctx.state.user.userId;
+    obj.creator = 'YSHI'
     return this.model.create(obj).then(d => d.toJSON())
   }
 
@@ -71,14 +73,19 @@ module.exports = class TodoSvc extends CommonBaseService {
    * @return {Promise<{code: number, data: any}>} 待办任务
    */
   async todoNext(id) {
+    const nextNode = {
+      planning: 'inProgress',
+      inProgress: 'testing',
+      testing: 'done',
+    }
+    let where = {}
     const todo = await this.byPk(id)
-    const index = todo.index + 1
-    const nextTodoNode = await this.service.todoNodeSvc.getData({ index })
-    if (!nextTodoNode) {
+    if (!nextNode[todo.node]) {
       return { code: 8000, data: null }
     }
-    todo.history.push({ index, time: new Date() })
-    const where = { id, index, history: todo.history }
+    const node = nextNode[todo.node]
+    todo.history.push({ node, time: new Date() })
+    where = { id, node, history: todo.history }
     const data = await this.update(where)
     return { code: 2000, data }
   }
@@ -88,7 +95,7 @@ module.exports = class TodoSvc extends CommonBaseService {
    * @return {Promise<{code: number, data: any}>} 待办任务
    */
   async todoDone(id) {
-    const doneNodeIndex = await this.model.max()
+    const node = 'done'
     const todo = await this.byPk(id)
     todo.history.push({ node, time: new Date() })
     const data = await this.update({ id, node, history: todo.history })

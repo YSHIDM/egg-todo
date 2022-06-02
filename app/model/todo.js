@@ -18,7 +18,7 @@ module.exports = app => {
       type: STRING(100),
       allowNull: true,
     },
-    // TODONode 的名字: todo,inProgress,testing,done
+    // TODONode 的名字: planning,inProgress,testing,done
     node: {
       type: STRING(10),
       allowNull: false,
